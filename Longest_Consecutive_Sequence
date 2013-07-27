@@ -1,0 +1,30 @@
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class Solution {
+    Set hashSet;
+    public int longestConsecutive(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int result = 0 ; 
+        hashSet=new HashSet();
+        for(int m: num)
+            hashSet.add(m);
+        for(int m: num)
+            result = Math.max(result , scan(m , true)+scan(m-1, false));
+        return result;
+    }
+    private int scan (int m , boolean asc)
+    {
+        int count = 0;
+            while(hashSet.contains(m))
+            {
+                count++;
+                hashSet.remove(m);
+                if(asc) m++;else m--; 
+            }
+        return count;
+    }
+}

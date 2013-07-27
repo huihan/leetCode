@@ -1,0 +1,47 @@
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+public class Solution {
+    public int ladderLength(String start, String end, HashSet<String> dict) {
+         
+        if(start.equals(end)) return 0;
+        
+        Set<String> set = new HashSet<String>();
+        Queue<String> queue = new LinkedList<String>();
+        
+        set.add(start);
+        queue.offer(start);
+        int count = 1; 
+        int distance = 1;
+        
+        while(count > 0)
+        {
+            while(count > 0)
+            {
+                char[] curr = queue.poll().toCharArray();
+                for(int i = 0 ; i < curr.length ; i++)
+                {
+                    char tmp = curr[i];
+                    for( char c = 'a' ; c <= 'z'; c++)
+                    {
+                        if(c == tmp) continue;
+                        curr[i]= c;
+                        String str = new String(curr);
+                        if(str.equals(end)) return distance+1;
+                        if(dict.contains(str) && !set.contains(str))
+                        {
+                            set.add(str);
+                            queue.offer(str);
+                        }
+                    }
+                    curr[i]=tmp;
+                }
+                count--;
+            }
+            count = queue.size();
+            distance++;
+        }
+        return 0;
+    }
+}

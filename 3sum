@@ -11,9 +11,9 @@ public class Solution {
         Arrays.sort(num);
         for(int i = 0 ; i < num.length -2 ; i++)
         {
-            for(int j = i + 1 ; i < num.length - 1 ; j++)
+            for(int j = i + 1 ; j < num.length - 1 ; j++)
             {
-                if(binarySearch(num , j +1 , num.length - 1 , -num[i] - num[j])>=0)
+                if(binarySearch(num , j +1 , num.length - 1 , -num[i] - num[j])>0)
                 {
                     ArrayList<Integer> triplet = new ArrayList<Integer>(3);
                     triplet.add(num[i]);
@@ -30,13 +30,13 @@ public class Solution {
 
     public static int binarySearch(int[] num, int p ,int q, int val)
     {
-        if(num == null || num.length == 0 || val < num[p] || val > num[q] || p < q)
+        if(num == null || num.length == 0 || val < num[p] || val > num[q] || p >q)
             return -1;
         int m = (p+q)/2;
         if(num[m] == val) return m;
         else if (num[m] > val)
-            return binarySearch(num , p ,m -1 , val);
+            return binarySearch(num , p ,m-1  , val);
         else
-            return binarySearch(num , m+1 , q,val);
+            return binarySearch(num , m+1  , q,val);
     }
  }

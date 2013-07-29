@@ -1,0 +1,27 @@
+public class Solution{
+  public int maxProfit(int[] prices)
+  {
+    int len = prices.length,result = 0,min_prices = 0,max_profit;
+    if(len <2) return 0;
+    int[] max_end = new int[len];
+    min_prices= prices[0];
+    max_end[0] = 0;
+    
+    for(int i= 1 ; i < len ; i++)
+    {
+      max_end[i] = Math.max(prices[i] - min_prices , max_end[i-1] );
+      min_prices = Math.min(min_prices , prices[i]);
+    }
+    
+    int highest = prices[len-1];
+    int max_profit2 = 0;
+  
+    for(int i = len - 2 ; i >= 0 ; i--)
+    {
+      max_profit2 = Math.max(max_profit2 , highest - prices[i]);
+      highest = Math.max(prices[i] , highest);
+      result = Math.max(result , max_profit2+ max_end[i]);
+    }
+    return result;
+  }
+}

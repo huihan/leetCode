@@ -1,0 +1,19 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+public class Solution {
+    public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) 
+    {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        return minimumTotal_DP( triangle , 0 ,0);
+    }
+    private int minimumTotal_DP(ArrayList<ArrayList<Integer>> triangle ,int row , int col)
+    {
+        if(row == triangle.size() -1)
+            return triangle.get(row).get(col); 
+        return Math.min(
+            minimumTotal_DP( triangle , row+1 ,col),
+            minimumTotal_DP( triangle , row+1 ,col+1)
+            )+triangle.get(row).get(col);
+    }
+}

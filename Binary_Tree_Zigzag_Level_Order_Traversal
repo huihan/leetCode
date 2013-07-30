@@ -1,0 +1,24 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> result ;
+    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        
+        result = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return result;
+        dfs(root , 1); 
+        return result;
+    }
+    private void dfs(TreeNode root , int depth )
+    {
+        if(root == null) return;
+        if(result.size()< depth) result.add( new ArrayList<Integer>() );
+        dfs(root.left ,depth+1);
+        if(depth%2 ==1)
+            result.get(depth-1).add(root.val);
+        else
+            result.get(depth-1).add(0,root.val);
+        dfs(root.right,depth+1);
+    }
+}
+  

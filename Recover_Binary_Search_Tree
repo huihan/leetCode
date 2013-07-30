@@ -1,0 +1,69 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    
+    public int last= Integer.MIN_VALUE;
+    public boolean finish = false;
+    private TreeNode bug_node = null;
+    private TreeNode bug_node2 = null;
+    private TreeNode last_node = null;
+    
+    
+    public void recoverTree(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        last= Integer.MIN_VALUE;
+        bug_node = null;
+        last_node = root;
+        finish = false;
+        recoverTree_DP(root);
+        if(!finish)
+        {
+            if(last_node.val > bug_node2.val)
+            {
+            int temp = bug_node2.val;
+            bug_node2.val = bug_node.val;
+            bug_node.val = temp;
+            }
+            else
+            {
+            int temp = last_node.val;
+            last_node.val = bug_node.val;
+            bug_node.val = temp;
+            }
+        }
+    }
+    private void recoverTree_DP(TreeNode root)
+    {
+        if(finish) return;
+        if(root == null ) return;
+        recoverTree_DP(root.left);
+        
+            if(root.val < last)
+            { 
+                if(bug_node == null)
+                {
+                    bug_node = last_node;
+                    bug_node2 = root;
+                }
+                else
+                {
+                    int temp = root.val;
+                    root.val = bug_node.val;
+                    bug_node.val = temp;
+                    finish = true;
+                }
+            }
+            last = root.val;
+        last_node = root;
+            
+        recoverTree_DP(root.right); 
+    }
+}

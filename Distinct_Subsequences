@@ -1,0 +1,17 @@
+public class Solution {
+    public int numDistinct(String S, String T) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        return numDistinct_DP(S,T);
+    }
+    public int numDistinct_DP(String S,String T)
+    {
+        if(S == null || T == null) return 0;
+        if(S.length() < T.length()) return 0;
+        if(T.length() == 0) return 1;
+        if(S.charAt(0) != T.charAt(0))
+            return numDistinct_DP(S.substring(1) ,T);
+        else 
+            return numDistinct_DP(S.substring(1) ,T.substring(1)) + numDistinct_DP(S.substring(1) ,T);
+    }
+}

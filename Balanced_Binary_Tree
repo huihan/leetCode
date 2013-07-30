@@ -1,0 +1,29 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int a = isBalanced_DP(root);
+        if(a>=0) return true;
+        return false;
+    }
+    
+    private int isBalanced_DP(TreeNode root){
+        if(root == null) return 0;
+        int a = isBalanced_DP( root.left);
+        if(a < 0) return a;
+        int b = isBalanced_DP(root.right);
+        if(b < 0) return b;
+        int c = a-b;
+        if(Math.abs(c)>1) return -1;
+        else return Math.max(a,b)+1;
+    }
+}

@@ -1,0 +1,38 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    private int min_Depth ;
+    public int minDepth(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        min_Depth = Integer.MAX_VALUE;
+        if(root == null) return 0;
+        if(root.left == null && root.right == null) return 1;
+        return Math.min( minDepth_DP(root.left,1) , minDepth_DP(root.right,1));
+    }
+    private int minDepth_DP(TreeNode root , int depth)
+    {
+        if(root == null) 
+        { 
+            return Integer.MAX_VALUE;
+        }
+        if(root.left == null && root.right == null) 
+        {
+            min_Depth = Math.min( depth+1,min_Depth);
+            return depth+1;
+        }
+        if(depth > min_Depth)
+        {
+            return depth+1;
+        }
+        
+        return Math.min( minDepth_DP(root.left,depth+1) , minDepth_DP(root.right,depth+1));
+    }
+}

@@ -1,0 +1,35 @@
+public class Solution {
+    public int removeDuplicates(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(A==null) return 0;
+        if(A.length < 2) return A.length;
+        int p = 0 , q = 1;
+        int count = 1;
+        while(q < A.length)
+        {
+            if(A[p] == A[q])
+            {
+                if(count == 1)
+                {
+                    count++;
+                    p++;
+                    A[p ] = A[q];
+                    q++;
+                }
+                else
+                {
+                    q++;
+                }
+            }
+            else
+            {
+                count = 1;
+                p++; 
+                A[p ] = A[q];
+                q++;
+            }
+        }
+        return p+1;
+    }
+}

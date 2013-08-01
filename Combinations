@@ -1,0 +1,26 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        result = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        combine_DP(1,n,k , arr);
+        return result;
+    }
+    
+    public void combine_DP(int p ,int q, int k , ArrayList<Integer> arr)
+    {
+        if(k == 0)
+        {
+            result.add(arr);
+            return;
+        }
+        if(p>q) return;
+        combine_DP( p+1 ,q , k , arr);
+        ArrayList<Integer> arr2 = new ArrayList<Integer> (arr);
+        
+        arr2.add(p);
+        combine_DP( p+1 ,q , k-1 , arr2);
+    }
+}

@@ -1,0 +1,40 @@
+class Solution {  
+public:  
+    string minWindow(string S, string T) {  
+        int c[256] = {0};  
+        bool cb[256] = {0};  
+        int cnt = T.size();  
+        for (char i: T) c[(int)i]++, cb[(int)i] = true;  
+          
+        int start = 0, end = 0;  
+        int ls = S.size();  
+        int minlen = 10000;  
+        string minstr = "";  
+        while (end < ls && start < ls) {  
+            if (cb[S[end]]) {  
+                c[S[end]]--;  
+                if (c[S[end]] >= 0) cnt--;  
+                while (cnt == 0) {  
+                    if (cb[S[start]] == false) start++;  
+                    else if (c[S[start]] < 0) {  
+                        c[S[start]]++;  
+                        start++;  
+                    } else {  
+                        break;  
+                    }  
+                }  
+                if (cnt == 0) {  
+                    if (end - start + 1 < minlen) {  
+                        minlen = end - start + 1;  
+                        minstr = S.substr(start, minlen);  
+                    }  
+                    c[S[start]]++;  
+                    start++;  
+                    cnt++;  
+                }  
+            }  
+            end++;  
+        }  
+        return minstr;  
+    }  
+};

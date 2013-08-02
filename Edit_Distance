@@ -1,0 +1,33 @@
+public class Solution {
+    public int minDistance(String word1, String word2) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(word1.length() == 0) return word2.length();
+        if(word2.length() == 0) return word1.length();
+        return minDistance_DP(word1,0,word2,0);
+    }
+    
+    private int minDistance_DP(String word1 , int i , String word2 , int j)
+    {
+        int next = Integer.MAX_VALUE /2, right = Integer.MAX_VALUE /2, down= Integer.MAX_VALUE /2;
+        if(i == word1.length()  ) return word2.length() - j;
+        if(j == word2.length()  ) return word1.length() - i;
+        
+     
+        if(word1.charAt(i) == word2.charAt(j))
+        {
+            
+            next = minDistance_DP(word1,i+1,word2,j+1);
+            return next;
+        }
+        else
+            next = 1 + minDistance_DP(word1,i+1,word2,j+1);
+
+
+        right = 1 +   minDistance_DP(word1,i,word2,j+1);
+
+        down = 1 +    minDistance_DP(word1,i+1,word2,j);
+        
+        return Math.min(next, Math.min(right,down));
+    }
+}

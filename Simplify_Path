@@ -1,0 +1,33 @@
+public class Solution {
+    public String simplifyPath(String path) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(path == null || path.length() == 0 ) return "/";
+        
+        Stack<String> stack = new Stack<String>();
+        String[] splits = path.trim().split("/");
+        
+        for(String s: splits)
+        {
+            if(s==null || s.length() == 0 || s.equals("."))
+            {
+                
+            }
+            else if (s.equals(".."))
+            {
+                if(stack.size() > 0) stack.pop();
+            }
+            else
+                stack.push(s);
+        }
+        if(stack.isEmpty()) return "/";
+        
+        StringBuffer buf = new StringBuffer();
+        while(!stack.isEmpty())
+        {
+            buf.insert(0,stack.pop());
+            buf.insert(0,"/");
+        }
+        return buf.toString();
+    }
+}

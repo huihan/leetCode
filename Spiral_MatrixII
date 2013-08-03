@@ -1,0 +1,41 @@
+public class Solution {
+    public int[][] generateMatrix(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int[][] res = new int[n][n];
+        if(n == 0) return res;
+        if(n == 1) 
+        {
+            res[0][0] = 1;
+            return res;
+        }
+        int k = 1;
+        for(int i = 0 ; i < n/2 + n %2 ; i++)
+        {
+            
+            for(int j = i ; j < n - i ; j ++)
+            {
+                res[i][j] = k;
+                k++;
+            }
+            if(i == n-i-1) continue;
+            for(int j = i+1 ; j < n - i-1 ; j ++)
+            {
+                res[j][n - i -1] = k;
+                k++;
+            }
+            
+            for(int j =n - i -1 ; j >=i ; j--)
+            {
+                res[n-i-1][j] = k;
+                k++;
+            }
+            for(int j =n - i -2 ; j >=i +1; j--)
+            {
+                res[j][i] = k;
+                k++;
+            }
+        }
+        return res;
+    }
+}

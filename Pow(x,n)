@@ -1,0 +1,28 @@
+public class Solution {
+    public double pow(double x, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        double t = x;
+        if(n == 0) return 1;
+         
+        if(x == 1) return 1;
+        
+        if(x == 0) return 0;
+        
+        int absn = Math.abs(n);
+       
+            int remain = absn %2;
+            
+            absn/=2;
+            double tem = pow(x,absn);
+            x = tem* tem;
+            if(remain > 0)
+                x = x * t;
+        if(n < 0)
+        {
+            x = 1/x;
+        }
+        
+        return x;
+    }
+}

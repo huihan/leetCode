@@ -1,0 +1,55 @@
+public class Solution {
+    public ArrayList<Integer> spiralOrder(int[][] matrix) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<Integer> re = new ArrayList<Integer>();
+        if(matrix == null) return re;
+        if(matrix.length == 0) return re;
+        if(matrix[0] == null) return re;
+        return spiralOrder_DP(matrix ,re, 1);
+    }
+    private ArrayList<Integer> spiralOrder_DP(int[][] matrix ,ArrayList<Integer> re, int circle){
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int max_circle = Math.min(col/2+ col%2 , row/2+ row%2);
+        if(circle > max_circle) return re;
+        
+        if(circle <  max_circle || (Math.min(col,row)%2 == 0 ))
+        {
+            for(int j = circle -1 ; j <= col - circle ; j++)
+            {
+                re.add(matrix[circle -1][j]);
+            }
+            for(int i = circle ; i<= row - circle -1 ; i++)
+            {
+                re.add(matrix[i][col-circle]);
+            }
+            for(int j = col-circle ; j >= circle -1 ;j--)
+            {
+                re.add(matrix[row - circle ][j]);
+            }
+            for(int i = row-circle -1 ; i >= circle ; i--)
+            {
+                re.add(matrix[i][circle-1]);
+            }
+            return spiralOrder_DP(matrix,re,circle +1);
+        }
+        
+        if(row >= col)
+        {
+            for(int j = circle ; j<= circle + row - col ;j++)
+            {
+                re.add(matrix[j-1][circle -1]);
+            }
+        }
+        else
+        {
+            for(int i = circle ; i<= circle + col - row ;i++)
+            {
+                re.add(matrix[circle-1][i-1]);
+            }
+            
+        }
+        return re;
+    }
+}

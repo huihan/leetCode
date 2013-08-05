@@ -1,0 +1,30 @@
+public class Solution {
+    private int[] list_pos ;
+    public int totalNQueens(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        list_pos = new int[n];
+        return totalNQueens_DP(n , 0);
+    }
+    public int totalNQueens_DP(int n , int k)
+    {
+        int re = 0;
+        if(k == n) return 1;
+        for(int i = 0 ; i < n ; i++)
+        {
+            int j = 0;
+            for( j = 0 ; j < k ; j++)
+            {
+                if(i == list_pos[j]) break;
+                if( j+list_pos[j] == k+ i) break;
+                if( j-list_pos[j] == k- i) break;
+            }
+            if(j == k)
+            {
+                list_pos[k ] = i;
+                re+= totalNQueens_DP(n,k+1);
+            }
+        }
+        return re;
+    }
+}

@@ -1,0 +1,27 @@
+public class Solution {
+    int head = 0;
+    public boolean canJump(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        head = 0;
+        return canJump_DP(A , 0);
+        
+    }
+    public boolean  canJump_DP(int[] A , int pos)
+    {
+        if(pos == A.length -1)
+        return true;
+        if(A[pos] == 0) return false;
+        
+        boolean re = false;
+        
+        for(int i = A[pos]; i >= 1 ; i--)
+        {
+            if(pos +i >= A.length-1) return true;
+            if(i+pos   < head) break;
+            re = re || canJump_DP(A, pos+i);
+        }
+        head = Math.max(pos+A[pos],head); 
+        return re;
+    }
+}

@@ -1,0 +1,59 @@
+import java.util.Hashtable;
+public class Solution {
+    Hashtable<String , ArrayList<Integer>> ht;
+    int[] dp_list;
+    int[] dp_list_star;
+    public ArrayList<ArrayList<Integer>> permute(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        dp_list = new int[num.length];
+        dp_list_star = new int[num.length];
+        ht = new Hashtable<String , ArrayList<Integer>>();
+        permuteUnique_DP(num , 0);
+        ArrayList<ArrayList<Integer>>  res = new ArrayList<ArrayList<Integer>> ();
+        for(ArrayList<Integer> arr : ht.values())
+        {
+            res.add(arr);
+        }
+        return res;
+    }
+    
+    public void permuteUnique_DP(int[] num , int k)
+    {
+        if(k == num.length)
+        {
+            if(!ht.containsKey(list_to_string(dp_list)))
+                ht.put( list_to_string(dp_list), list2array(dp_list));
+            return ;
+        }
+        for(int i = 0 ; i < num.length ; i++)
+        {
+            if(dp_list_star[i] == 0)
+            {
+                dp_list[k] = num[i];
+                dp_list_star[i] =1;
+                permuteUnique_DP(num , k+1);
+                dp_list_star[i] =0;
+            }
+        }
+    }
+    
+    private String  list_to_string( int[] list)
+    {
+        String str = new String();
+        for(int i = 0 ; i < list.length ; i++)
+        {
+            str+="," + list[i] ;
+        }
+        return str;
+    }
+    private ArrayList<Integer>   list2array( int[] ints)
+    {
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (int index = 0; index < ints.length; index++)
+        {
+            intList.add(ints[index]);
+        }
+        return intList;
+    }
+}

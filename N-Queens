@@ -1,0 +1,56 @@
+public class Solution {
+    private int[] list_pos ;
+    ArrayList<String[]> res ;
+    
+    public ArrayList<String[]> solveNQueens(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        list_pos = new int[n];
+        res = new ArrayList<String[]>();
+        totalNQueens_DP(n , 0);
+        return res;
+        
+    } 
+    public int totalNQueens_DP(int n , int k)
+    {
+        int re = 0;
+        if(k == n) 
+        {
+            print_result();
+            return 1;
+        }
+        for(int i = 0 ; i < n ; i++)
+        {
+            int j = 0;
+            for( j = 0 ; j < k ; j++)
+            {
+                if(i == list_pos[j]) break;
+                if( j+list_pos[j] == k+ i) break;
+                if( j-list_pos[j] == k- i) break;
+            }
+            if(j == k)
+            {
+                list_pos[k ] = i;
+                re+= totalNQueens_DP(n,k+1);
+            }
+        }
+        return re;
+    }
+    void print_result()
+    {
+        String[] re = new String[list_pos.length];
+        for(int i = 0 ; i < list_pos.length ; i++)
+        {
+            String str = "";
+            for(int j = 0 ; j < list_pos.length ; j++)
+            {
+                if(j != list_pos[i])
+                str+= ".";
+                else 
+                str+="Q";
+            } 
+            re[i] = str;
+        }
+        res.add(re);
+    }
+}

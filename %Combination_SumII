@@ -1,0 +1,38 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();  
+    public void DFS(int[] candidates,ArrayList<Integer> current,int index,int target){  
+        if(target<0 || index>candidates.length-1)  
+            return;  
+        else{  
+            // left branch, not add the node  
+            DFS(candidates,new ArrayList<Integer>(current),index+1,target);  
+            // right branch, add the node  
+            int node = candidates[index];  
+            current.add(node);  
+            target -= node;  
+            if(target==0)  
+                res.add(current);  
+            DFS(candidates,new ArrayList<Integer>(current),index+1,target);   
+        }  
+        return;  
+    }  
+      
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {  
+        // Start typing your Java solution below  
+        // DO NOT write main() function  
+        int len = candidates.length;  
+        if(len<1)  
+            return res;  
+        res.clear();  
+        Arrays.sort(candidates);  
+        ArrayList<Integer> current = new ArrayList<Integer>();  
+        DFS(candidates,current,0,target);  
+        //remove duplicate from res  
+        HashSet st = new HashSet();  
+        st.addAll(res);  
+        res.clear();  
+        res.addAll(st);  
+          
+        return res;  
+    }  
+}

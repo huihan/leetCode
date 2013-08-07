@@ -1,0 +1,34 @@
+public class Solution {
+    int a = -1 ; 
+    int b = -1;
+    public int[] searchRange(int[] A, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+         a=Integer.MAX_VALUE;
+         b=-1;
+         search(A,target , 0,A.length-1);
+         if(a== Integer.MAX_VALUE) a = -1;
+         int[] res = new int[]{a,b};
+         return res;
+    }
+    void search(int[] A,int target,int p , int q)
+    {
+        if(p>q) return ;
+        int mid = (p+q)/2;
+        if(A[mid] == target )
+        {
+            a = Math.min(a, mid );
+            b = Math.max(b, mid );
+            search(A,target,p,mid -1);
+            search(A,target,mid +1,q);
+        }
+        else
+        {
+            if(A[mid] < target)
+               search (A,target,mid +1,q);
+            else
+                search(A,target,p,mid -1);
+        }
+        
+    }
+}

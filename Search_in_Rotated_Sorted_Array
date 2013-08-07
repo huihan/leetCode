@@ -1,0 +1,28 @@
+public class Solution {
+    public int search(int[] A, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        return search_DP(A,target,0,A.length-1);
+    }
+    int search_DP(int[] A, int target,int p, int q)
+    {
+        if(p>q) return -1;
+        int mid = (p+q)/2;
+        if(A[mid]==target) return mid;
+        if(A[mid]<target) 
+        {
+            if(A[mid] >= A[q])
+                return search_DP(A,target,mid+1,q);
+        }
+        else
+        {
+             if(A[mid] <= A[q])
+                return search_DP(A,target,p,mid-1);
+        } 
+        int a= search_DP(A,target,mid+1,q);
+        if(a>=0) return a;
+        int b= search_DP(A,target,p,mid-1);
+        if(b>=0) return b; 
+        return -1;
+    }
+}

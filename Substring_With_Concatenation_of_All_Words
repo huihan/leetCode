@@ -1,21 +1,19 @@
 import java.util.Hashtable;
 public class Solution {
+    Hashtable<String,Integer> ht ;
     public ArrayList<Integer> findSubstring(String S, String[] L) {
         // Start typing your Java solution below
         // DO NOT write main() function
         ArrayList<Integer> res = new ArrayList<Integer>();
         if(L.length == 0||S.length() == 0) return res; 
-        Hashtable<String,Integer> ht = new Hashtable<String,Integer>();
+        ht = new Hashtable<String,Integer>();
         
+       
         int len = L[0].length();
-        int[] len_list = new int[L.length];
-        for(int i = 0 ; i < L.length ; i++)
-        {
-            ht.put(L[i],-1);
-        }
         for(int i = 0 ; i <= S.length() - L.length * len ; i++)
         {
-            int j;
+            int j; 
+            refresh(L);
             for(j = 0 ; j < L.length ; j++)
             { 
                 String str =S.substring(i +j*len ,i+len+ j*len );
@@ -23,12 +21,27 @@ public class Solution {
                 {
                      break;
                 }
-                if(ht.get(str) == i) break;
-                ht.put(str,i);
+                if(ht.get(str) == 0) break;
+                ht.put(str,ht.get(str)-1);
             }
             if(j == L.length) 
                 res.add(i);
         } 
         return res;
+    }
+    void refresh(String[] L)
+    { 
+        for(int i = 0 ; i < L.length ; i++)
+        {
+            if( ht.containsKey(L[i]))
+                ht.put(L[i],0); 
+        }
+        for(int i = 0 ; i < L.length ; i++)
+        {
+            if(!ht.containsKey(L[i]))
+                ht.put(L[i],1);
+            else
+                ht.put(L[i],ht.get(L[i])+1);
+        }
     }
 }

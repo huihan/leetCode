@@ -1,0 +1,46 @@
+public class Solution {
+    public String strStr(String haystack, String needle) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        
+        int len = needle.length();
+        if(len == 0 ) return haystack;
+        if(  haystack.length() == 0) return null;
+        int[] list = new int [len];   
+        for(int i = 0 ; i < len ;i++) list[i] = 0;
+         
+        int j;
+        for(int i = 1 ; i < len ;i++)
+        {
+            for( j=  0 ; i+j < len-1 ; j++)
+            {
+                if ( needle.charAt( i + j ) == needle.charAt(j))
+                {
+                    list[i+j+1] = j +1;
+                }
+                else  break;
+            }
+            i+=j;
+        }
+        int k = 0;
+        int t = 0;
+        for(   ;t < haystack.length() ; t++)
+        {
+            if(haystack.charAt(t) == needle.charAt(k) )
+            {
+                k++;
+                if(k == len) break;
+            }
+            else
+            {
+                if(k!=0)
+                {
+                    k = list[k];
+                    t--;
+                } 
+            }
+        }
+        if(t == haystack.length() && k != len) return null;
+        return haystack.substring(t - len +1);
+    }
+}

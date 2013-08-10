@@ -1,0 +1,28 @@
+public class Solution {
+    int[] arr = {3,3,3,3,3,4,3,4};
+    char[] crr = {'a','d','g','j','m','p','t','w'};
+    public ArrayList<String> letterCombinations(String digits) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<String> res = new ArrayList<String>();
+        
+        if(digits.length() == 0) 
+        {
+            res.add("");
+            return res;
+        }
+        int index = digits.charAt(0) - '2';
+        if(index < 0 || index > 7) return res;
+        int x = index*3 +'a';
+        ArrayList<String> dp =letterCombinations(digits.substring(1));
+        for(int i = 0 ; i < arr[index] ; i++)
+        {
+            for(int k = 0 ; k < dp.size() ; k++)
+            {
+                String str = (char)( crr[index] +i) + dp.get(k);
+                res.add(str);
+            }
+        }
+        return res;
+    }
+}

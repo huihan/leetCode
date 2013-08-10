@@ -1,0 +1,27 @@
+public class Solution {
+    public boolean isPalindrome(int x) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int len = 0,t = x ;
+        if(x<0) return false;
+        while(t != 0)
+        {
+            t = t/10;
+            len++;
+        } 
+        for(int i = 0; i < len /2 ; i++)
+        {
+            if(x/e10(i) %10 != x/e10(  len-i -1 )%10 ) return false;
+        }
+        return true;
+    }
+    public int e10(int k)
+    {
+        int res =1;
+        while(k>0)
+        {
+        k--;res*=10;
+        }
+        return res;
+    }
+}

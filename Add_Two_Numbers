@@ -1,0 +1,81 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ListNode res = new ListNode(0);
+        ListNode head  = res;
+        if(l1 == null) return l2;
+        if(l2 == null) return l1; 
+        int carry = 0;
+        while(l1!=null && l2!=null)
+        {
+            res.val = l1.val + l2.val + carry;
+            if(res.val >= 10)
+            {
+                carry = 1;
+                res.val = res.val %10;
+            }
+            else carry = 0;
+            l1 = l1.next;
+            l2 = l2.next;
+            
+            ListNode nod = new ListNode(0);
+            res.next = nod;
+            res = nod;
+        }
+        while(l1==null && l2!=null)
+        {
+            res.val =  l2.val + carry;
+            if(res.val >= 10)
+            {
+                carry = 1;
+                res.val = res.val %10;
+            }
+            else carry = 0;
+            l2 = l2.next;
+            ListNode nod = new ListNode(0);
+            res.next = nod;
+            res = nod;
+        } 
+        while(l1!=null && l2==null)
+        {
+            res.val =  l1.val + carry;
+            if(res.val >= 10)
+            {
+                carry = 1;
+                res.val = res.val %10;
+            }
+            else carry = 0;
+            l1 = l1.next;
+            ListNode nod = new ListNode(0);
+            res.next = nod;
+            res = nod;
+        }
+        if(carry == 1)
+            res.val = 1;
+        delete(head);
+        return head;
+    }
+    boolean delete(ListNode p)
+    {
+        if(p == null) return true;
+        boolean f = delete(p.next);
+         
+        if(f) p.next = null;
+        else
+        return false;  
+        if(p.val == 0) return true;
+        return false;
+    }
+}

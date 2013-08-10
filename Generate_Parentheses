@@ -1,0 +1,29 @@
+public class Solution {
+    public ArrayList<String> generateParenthesis(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<String> res = new ArrayList<String>();
+        if(n == 0) 
+        {
+            res.add("");
+            return res;
+        }
+        if(n == 1)
+        {
+            res.add("()");
+            return res;
+        }
+        for(int i = 0 ; i < n  ; i++)
+        {
+            ArrayList<String> mid = generateParenthesis(i);
+            ArrayList<String> right = generateParenthesis(n-1-i);
+            for(int j = 0 ; j < mid.size() ; j++)
+                for(int k = 0 ; k < right.size() ; k++)
+                {
+                    String str = "("+ mid.get(j)+")" + right.get(k);
+                    res.add(str);
+                }
+        }
+        return res;
+    }
+}

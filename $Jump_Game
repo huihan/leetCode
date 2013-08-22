@@ -1,18 +1,15 @@
-class Solution {
-public:
-    bool canJump(int A[], int n) {
-         int ret = 0;
-        int last = 0;
-        int curr = 0;
-        for (int i = 0; i < n; ++i) {
-            if (i > last) {
-                if(last == curr) return false;
-                last = curr;
-                ++ret;
-            }
-            curr = max(curr, i+A[i]);
+public class Solution {
+    public boolean canJump(int[] A) { 
+        int len = A.length; 
+        int last = 0; 
+        
+        for(int i = 0   ; i < len ; i++)
+        {
+            if(i > last) return false;
+            last = Math.max(A[i]+i,last);
+            
         }
-        if(last >= n-1) return true;
-        else return false; 
+        if(last >= len-1) return true;
+        else  return false;
     }
-}; 
+}

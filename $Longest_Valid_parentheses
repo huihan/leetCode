@@ -27,3 +27,47 @@ public class Solution {
         return res;
     }
 }
+
+
+
+public class Solution {
+    public int longestValidParentheses(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Stack<Integer> st = new Stack<Integer>();
+        int len = s.length();
+        int res = 0;
+        int carry = 0; 
+        for(int i = 1 ; i <= len ; i++)
+        {
+            char ch = s.charAt(i-1);
+            switch(ch){
+                case '(':
+                    st.push(i - carry);
+                    carry = 0;
+                     break;
+                case ')':
+                    if(st.isEmpty())
+                    {
+                        st.push(-i); 
+                        carry = 0;
+                    } 
+                    else
+                    {
+                        if(st.peek() > 0)
+                        {
+                            carry = i - st.pop() +1;
+                            res = Math.max(res,carry );
+                        }
+                        else 
+                        {
+                            carry = 0;
+                            st.push(-i);
+                        }
+                    }
+                    break;
+            }
+        }
+        return res;
+    }
+}

@@ -23,3 +23,45 @@ public:
         else return a[ia-1];  
     }  
 }; 
+
+public class Solution {
+    public double findMedianSortedArrays(int A[], int B[]) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int len_a = A.length;
+        int len_b = B.length;
+        int total = len_a + len_b;
+        if(total == 0 ) return 0;
+        if(total % 2 == 0)
+        {
+            return (solve(A,0,len_a-1 , B,0,len_b-1 , total/2) + solve(A,0,len_a-1 , B,0,len_b-1 , total/2+1) )/2;
+        }
+        else
+            return  solve(A,0,len_a-1 , B,0,len_b-1 , total/2+1);
+    }
+    
+    public double solve(int A[] , int p  , int q , int B[] , int f, int g , int k)
+    {
+        
+        int a = q-p +1;
+        int b = g-f+1;
+        if( a > b) return solve(B,f,g,A,p,q,k);
+        if(a +b < k) return 0;
+        if(a<=0) return B[f+k -1];
+        if(b<=0) return A[p+k -1];
+        if(k <=1) return Math.min(A[p] , B[f]);
+        
+        int ia = Math.min(k/2 , a );
+        int ib = k - ia;
+        
+        if(B[f+ib -1] > A[p + ia -1 ])
+        {
+            return solve(A,p + ia , q , B , f , g , k - ia);
+        }
+        else
+        {
+            return solve(A , p , q, B , f+ ib , g , k - ib);
+        }
+        
+    }
+}
